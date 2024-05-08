@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { theme } from '../theme';
 import { Link, useLocation, useOutletContext } from 'react-router-dom';
 import { Coin, CoinWrapper, CoinsList, Container, Header, Img, Loader, Title } from '../Style';
 import { fetchCoins } from '../api';
 import { useQuery } from 'react-query';
+import { useSetRecoilState } from 'recoil';
+import { isDarkAtom } from '../atoms';
 
 interface CoinInterface {
     id : string,
@@ -20,11 +21,14 @@ interface CoinInterface {
 
 const Coins = () => {
     const { isLoading, data } = useQuery<CoinInterface[]>(["allCoins"], fetchCoins);
-   
+    const setDarkAtom = useSetRecoilState(isDarkAtom);
+    const toggleDarkAtom = () => setDarkAtom((prev) => !prev)
     return (
         <Container>
             <Header>
                 <Title>코인</Title>
+                <button onClick={toggleDarkAtom}>Toggle Mode</button>
+
             </Header>
             {isLoading ? (
             <Loader>

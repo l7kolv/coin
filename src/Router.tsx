@@ -6,6 +6,7 @@ import Chart from './Routes/Chart';
 import Price from './Routes/Price';
 
 const Router = () => {
+   
     return (
         <div>
             <Routes>
